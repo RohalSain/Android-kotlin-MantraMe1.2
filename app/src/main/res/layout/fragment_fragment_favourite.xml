@@ -1,0 +1,54 @@
+<android.support.v4.widget.DrawerLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/mDrawer"
+tools:context="com.developer.rohal.mantra.fragmentFavourite">
+<RelativeLayout
+    android:layout_marginTop="20dp"
+    android:id="@+id/task"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="@drawable/ic_header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/FavouriteBackButton"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_left_arrow_white"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Favourite"
+            android:textColor="@color/white"
+            android:textSize="24sp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewfavourite"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

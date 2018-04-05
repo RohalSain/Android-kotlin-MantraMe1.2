@@ -1,0 +1,52 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/status"
+                android:background="#b4b3b3"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/makeImageCirculartest"
+                    android:background="@drawable/ic_home_screen_image_placeholder"/>
+                <TextView
+                    android:id="@+id/MakeTexttest"
+                    android:textColor="@android:color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/status"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <Button
+            android:id="@+id/testCancel"
+            android:background="@color/orange"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Cancel"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="2dp"
+            android:background="@color/ligtWhite"/>
+        <Button
+            android:id="@+id/testok"
+            android:background="@color/orange"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="Ok"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+        </RelativeLayout>

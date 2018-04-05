@@ -1,0 +1,140 @@
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentSideMenu"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.developer.rohal.mantra.fragmentSideMenuReflection">
+<RelativeLayout
+    android:id="@+id/main"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:weightSum="3"
+        android:background="@drawable/ic_header_bg"
+        android:layout_marginTop="5dp"
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <RelativeLayout
+            android:layout_weight="1"
+            android:id="@+id/RefCancel"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_cross_white"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:id="@+id/Refdel"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_delete_white"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:id="@+id/Refok"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_tick_white"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_bar">
+        <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:id="@+id/shadow"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:layout_below="@+id/btnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/status"
+                android:background="#b4b3b3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/image"
+                    android:background="@drawable/ic_home_screen_image_placeholder"/>
+                <TextView
+                    android:id="@+id/Quote"
+                    android:textColor="@android:color/black"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/belowBar"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:paddingStart="10dp"
+                android:id="@+id/addReflection"
+                android:hint="Add Reflection.."
+                android:inputType="text"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/addReflection"
+                android:background="@android:color/darker_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/recyclerviewSideMenuClicked"
+            android:layout_width="match_parent"
+            android:layout_above="@+id/belowBar"
+            android:layout_below="@+id/shadow"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerviewSideMenu"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
+</RelativeLayout>
