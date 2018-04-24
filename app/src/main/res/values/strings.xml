@@ -16,4 +16,9 @@
     <string name="txtPassword">Password</string>
     <string name="defaultpassword">User Guide <a href="http://www.cleverfinger.com.au/user-guide/">http://www.cleverfinger.com.au/user-guide/</a></string>
 
+
+    <string name="action_fav">Favorite</string>
+    <string name="action_ref">Reflection</string>
+    <string name="action_share">Share</string>
+    <string name="action_img">Upload Image</string>
 </resources>

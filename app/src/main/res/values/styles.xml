@@ -3,15 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/transparent</item>
-        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:popupMenuStyle">@style/AndroidSRC.PopupMenu</item>
     </style>
     <style name="AndroidSRC.PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/editextround</item>
+        <item name="android:popupBackground">@drawable/btn_cornor_round</item>
         <item name="android:dropDownHorizontalOffset">-4dp</item>
-        <item name="android:textSize">6sp</item>
+        <item name="android:textSize">2sp</item>
         <item name="android:dropDownVerticalOffset">0dp</item>
     </style>
     <style name="customAnimationsgrow">

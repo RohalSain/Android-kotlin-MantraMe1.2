@@ -1,9 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    tools:context="com.developer.rohal.mantra.fragmentAccountSetting">
+    tools:context="com.developer.rohal.mantra.FragmentAccountSetting">
     <RelativeLayout
         android:id="@+id/top"
         android:layout_marginTop="20dp"
@@ -23,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageButton
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_left_arrow_white"/>
@@ -31,6 +32,7 @@
         <TextView
             android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Account Setting"
@@ -43,12 +45,18 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
       <com.facebook.drawee.view.SimpleDraweeView
+          android:background="@drawable/ic_home_screen_image_placeholder"
           android:layout_marginLeft="-10dp"
           android:layout_marginRight="-5dp"
           android:layout_marginTop="-12dp"
           android:id="@+id/Imageblur"
           android:layout_width="match_parent"
           android:layout_height="200dp" />
+      <com.github.mmin18.widget.RealtimeBlurView
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          app:realtimeBlurRadius="4dp"
+          app:realtimeOverlayColor="@android:color/transparent" />
   </RelativeLayout>
 </RelativeLayout>
     <RelativeLayout
@@ -79,20 +87,6 @@
                 android:layout_height="35dp"
                 android:hint="Janvi Sharma"
                 android:inputType="text"/>
-            <EditText
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/txtEmail"
-                android:textColor="@android:color/black"
-                android:drawableLeft="@drawable/ic_password_orange"
-                android:paddingStart="15dp"
-                android:drawablePadding="10dp"
-                android:id="@+id/txtPassword"
-                android:textSize="16sp"
-                android:background="@drawable/editextroundcornor"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:text="*******"
-                android:inputType="textPassword"/>
             <EditText
                 android:editable="false"
                 android:focusable="false"
@@ -146,9 +140,11 @@
         android:layout_marginBottom="52dp">
         <ImageButton
             android:layout_marginLeft="90dp"
-            android:background="@drawable/ic_about_grey"
+            android:background="@drawable/ic_circle_pencil_edit"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/PicClick"/>
     </RelativeLayout>
+    <include android:id="@+id/loading_indicatesetting"
+        layout="@layout/fragment_loading"/>
 </RelativeLayout>

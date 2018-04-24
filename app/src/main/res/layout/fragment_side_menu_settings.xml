@@ -7,14 +7,13 @@
         android:layout_marginTop="25dp"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <RelativeLayout
 
             android:id="@+id/task"
             android:background="@drawable/ic_header_bg"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="60dp">
             <RelativeLayout
                 android:id="@+id/SettingBackButton"
                 android:paddingStart="20dp"
@@ -22,15 +21,16 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="20dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <ImageButton
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_left_arrow_white"/>
             </RelativeLayout>
             <TextView
-                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,6 +140,32 @@
                     android:layout_below="@+id/Accountfeedback"/>
                 <RelativeLayout
                     android:layout_below="@+id/Accountfeedback"
+                    android:id="@+id/AccountChangePassword"
+                    android:layout_height="45dp"
+                    android:layout_width="match_parent">
+                    <Button
+                        android:id="@+id/AccountChangePasswordInner"
+                        android:textSize="16sp"
+                        android:background="@null"
+                        android:layout_height="45dp"
+                        android:drawablePadding="10dp"
+                        android:paddingStart="20dp"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:text="Change Password"
+                        android:drawableLeft="@drawable/ic_feedback_grey"
+                        android:layout_width="match_parent">
+                    </Button>
+                </RelativeLayout>
+                <View
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_below="@+id/AccountChangePassword"/>
+                <RelativeLayout
+                    android:layout_below="@+id/AccountChangePassword"
                     android:id="@+id/About"
                     android:layout_height="45dp"
                     android:layout_width="match_parent">

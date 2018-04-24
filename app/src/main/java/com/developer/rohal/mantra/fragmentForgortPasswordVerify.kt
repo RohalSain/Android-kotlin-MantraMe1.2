@@ -4,23 +4,32 @@ package com.developer.rohal.mantra
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_forgort_password_verify.*
-import kotlinx.android.synthetic.main.fragment_forgot_password.*
-import kotlinx.android.synthetic.main.fragment_login.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.HashMap
 
 
 /**
  * A simple [Fragment] subclass.
  */
 class fragmentForgortPasswordVerify : Fragment() {
-
+    private val SPLASH_TIME_OUT = 1000
+    var load=Loader()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var titleFont = Typeface.createFromAsset(context?.assets, "fonts/Billy Ohio.ttf")
@@ -45,12 +54,47 @@ class fragmentForgortPasswordVerify : Fragment() {
                 snackbar1.show();
             }
             else if(status==true) {
-                val transaction = fragmentManager?.beginTransaction()
-                transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                var fragmentLogin = fragmentDashboard()
-                transaction?.replace(R.id.container, fragmentLogin)
-                transaction?.addToBackStack("Dashboard Page")
-                transaction?.commit()
+
+                var status1=" "
+                var client = ApiCall()
+                var retrofit = client.retrofitClient()
+                val redditAP = retrofit?.create(RedditAPI::class.java)
+                val headerMap = HashMap<String, RequestBody>()
+                headerMap.put("currentPassword", RequestBody.create(MediaType.parse("text/plain"),"${txtVerifyCode.text.trim()}"))
+                headerMap.put("newPassword", RequestBody.create(MediaType.parse("text/plain"),"${txtForgotVerifyNewPassword.text.trim()}"))
+
+                var call=redditAP?.changePassword(LoginDataUser.instance.token!!,headerMap)
+                call?.enqueue(object: Callback<ResponseBody> {
+                    override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?)
+                    {
+                        if(response?.isSuccessful!!)
+                        {
+                            var json: String = response?.body()!!.string();
+                            Log.d("JSON Alarm", "onResponse: json: " + json);
+                            var data: JSONObject? = null;
+                            data = JSONObject(json)
+                            var status = data.get("success")
+                            if(data.get("success")==1 &&data.get("message").equals("Request successful"))
+                            {
+                                Log.d("status","yes")
+                                load.HideCustomLoader()
+                                Handler().postDelayed(Runnable
+                                {
+                                    activity?.onBackPressed()
+                                }, SPLASH_TIME_OUT.toLong())
+
+                            }
+                            else{
+                                var view=ReuseMethod()
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+
+                    }
+
+                })
             }
 
         }

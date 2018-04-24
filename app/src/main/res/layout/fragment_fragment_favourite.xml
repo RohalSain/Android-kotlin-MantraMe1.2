@@ -1,11 +1,11 @@
-<android.support.v4.widget.DrawerLayout
+<FrameLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:id="@+id/mDrawer"
-tools:context="com.developer.rohal.mantra.fragmentFavourite">
+tools:context="com.developer.rohal.mantra.FragmentFavourite">
 <RelativeLayout
     android:layout_marginTop="20dp"
     android:id="@+id/task"
@@ -51,4 +51,6 @@ tools:context="com.developer.rohal.mantra.fragmentFavourite">
     </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 </RelativeLayout>
-</android.support.v4.widget.DrawerLayout>
+    <include android:id="@+id/loading_indicatefav"
+        layout="@layout/fragment_loading"/>
+</FrameLayout>

@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/makeImage"
-        android:drawable="@drawable/editextroundcornor"
-        android:title="Make Image" />
+        android:id="@+id/fav"
+        android:icon="@drawable/ic_favorite_grey"
+        android:title="@string/action_fav"/>
+
+    <item
+        android:id="@+id/ref"
+        android:icon="@drawable/ic_refection_grey"
+        android:title="@string/action_ref"/>
+
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share_grey"
+        android:title="@string/action_share"/>
+
+    <item
+        android:id="@+id/uploadImage"
+        android:icon="@drawable/ic_email_orange"
+        android:title="@string/action_img"/>
+
 </menu>

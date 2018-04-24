@@ -10,6 +10,15 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class ApiCall {
+
+    private object Holder {
+        val INSTANCE = ApiCall()
+    }
+
+    companion object {
+        val instance:ApiCall by lazy { Holder.INSTANCE }
+    }
+
     var  okHttpClient:OkHttpClient?=null
     var  user:String="mantrame@emilence.com"
     var  pass:String="Emilence@1"
@@ -18,9 +27,9 @@ class ApiCall {
     {
         okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(BasicAuthInterceptorClass("${user}", "${pass}"))
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build()
     }
     fun retrofitClient(): Retrofit? {
@@ -64,4 +73,5 @@ class ApiCall {
         }
 
     }
+
 }

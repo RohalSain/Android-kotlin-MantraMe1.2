@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_bg"
-    tools:context="com.developer.rohal.mantra.fragmentSplashScreen">
+    tools:context="com.developer.rohal.mantra.FragmentSplashScreen">
     <RelativeLayout
         android:id="@+id/appName"
         android:layout_centerHorizontal="true"

@@ -49,4 +49,26 @@ class Session(internal var ctx: Context) {
         editor.putBoolean("loggedInmode",false)
         editor.commit()
     }
+    fun setName(name:String) {
+        editor.putString("name",name)
+        editor.commit()
+    }
+    fun setPrfofilePic(url:String) {
+        editor.putString("profilePic",url)
+        editor.commit()
+    }
+    fun setQuote(Quotes:String) {
+        editor.putString("Quotes", Quotes)
+        editor.commit()
+    }
+    fun getQuote():String {
+        return prefs.getString("Quotes","empty")
+    }
+    fun setDataStatus(status:Boolean) {
+        editor.putBoolean("have", status)
+        editor.commit()
+    }
+    fun getDataStatus():Boolean {
+        return prefs.getBoolean("have", false)
+    }
 }

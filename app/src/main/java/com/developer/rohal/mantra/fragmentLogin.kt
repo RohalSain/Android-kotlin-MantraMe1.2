@@ -6,10 +6,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.util.Patterns
@@ -64,7 +62,7 @@ class fragmentLogin: Fragment() {
         btnSignUpLogin.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
             transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            var fragmentLogin = fragmentSignUp()
+            var fragmentLogin = FragmentSignUp()
             transaction?.replace(R.id.container, fragmentLogin)
             transaction?.commit()
         }
@@ -92,7 +90,8 @@ class fragmentLogin: Fragment() {
                 use.showSnakBar(it, "Please enter your password!")
 
             } else if (status == true) {
-                loader.ShowCustomLoader(it.context)
+                loading_indicator.visibility = View.VISIBLE
+                //loader.ShowCustomLoader(it.context)
                 var client = ApiCall()
                 var retrofit = client.retrofitClient()
                 val name = txtEmailLogin.text.toString().trim()
@@ -109,7 +108,7 @@ class fragmentLogin: Fragment() {
                             json = response?.body()?.string()
                             if (json == null) {
                                 Log.d("String", "yes")
-                                loader.HideCustomLoader()
+                                loading_indicator.visibility = View.INVISIBLE
                                 use.showSnakBar(getView, "Please enter valid username and password")
                             } else {
 
@@ -126,12 +125,12 @@ class fragmentLogin: Fragment() {
                                 obj.profiePic = "http://139.59.18.239:6010/mantrame/${profile}"
                                 var session = Session(context?.applicationContext!!)
                                 session.setLoggedin(true, name, password, obj.token!!, obj.profiePic!!,display)
-                                loader.HideCustomLoader()
+                                loading_indicator.visibility = View.INVISIBLE
                                 txtEmailLogin.getText().clear()
                                 txtPasswordLogin.getText().clear()
                                 val transaction = fragmentManager?.beginTransaction()
                                 transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                                var fragmentLogin = fragmentDashboard()
+                                var fragmentLogin = FragmentDashboard()
                                 transaction?.replace(R.id.container, fragmentLogin)
                                 transaction?.commit()
                             }
@@ -139,15 +138,17 @@ class fragmentLogin: Fragment() {
 
                         } catch (e: JSONException) {
                             Log.e("JSONException", "onResponse: JSONException: ");
+                            loading_indicator.visibility = View.INVISIBLE
                         } catch (e: IOException) {
                             Log.e("IOexception", "onResponse: JSONException: ");
+                            loading_indicator.visibility = View.INVISIBLE
                         }
 
                     }
 
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         Log.e("OnFailure", "onFailure: Something went wrong: ")
-                        loader.HideCustomLoader()
+                        loading_indicator.visibility = View.INVISIBLE
                         use.showSnakBar(getView, "Please Check Internet Connection")
                     }
                 })
@@ -370,7 +371,7 @@ class fragmentLogin: Fragment() {
                                 use.showSnakBar(getview, "${data.get("message")}")
                                 val transaction = fragmentManager?.beginTransaction()
                                 transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                                var fragmentLogin = fragmentDashboard()
+                                var fragmentLogin = FragmentDashboard()
                                 transaction?.replace(R.id.container, fragmentLogin)
                                 transaction?.addToBackStack("Login Page")
                                 transaction?.commit()

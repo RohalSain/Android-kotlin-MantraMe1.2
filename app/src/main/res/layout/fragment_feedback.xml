@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/feedback"
 
     tools:context="com.developer.rohal.mantra.fragmentFeedback">
     <RelativeLayout
@@ -12,7 +13,7 @@
             android:id="@+id/task"
             android:background="@drawable/ic_header_bg"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:id="@+id/feedbackBackButton"
                 android:paddingStart="20dp"
@@ -22,12 +23,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageButton
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_left_arrow_white"/>
             </RelativeLayout>
             <TextView
+                android:layout_centerVertical="true"
                 android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
@@ -50,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:inputType="text"
                     android:textColor="@color/Color767676"
                     android:paddingStart="10dp"
                     android:id="@+id/addReflection"

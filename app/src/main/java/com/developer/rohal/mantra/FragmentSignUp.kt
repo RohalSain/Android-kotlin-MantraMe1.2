@@ -50,11 +50,7 @@ import java.util.HashMap
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-
-/**
- * A simple [Fragment] subclass.
- */
-class fragmentSignUp:Fragment() {
+class FragmentSignUp:Fragment() {
     var f: File? = null
     private val PICK_FROM_FILE = 300
     var bmpuri: Bitmap? = null
@@ -67,20 +63,23 @@ class fragmentSignUp:Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var stringFirstPart = "By Clicking Continue you agree to our Terms & Conditions"
-        var string_next: String = "\nand Privacy Policies"
+        val stringFirstPart = "By Clicking Continue you agree to our Terms & Conditions"
+        val stringNext: String = "\nand Privacy Policies"
+        LoginDataUser.instance.content = 9
         pic.setOnClickListener {
             Dialog_box(context)
         }
         btn_back.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
+            fragmentManager?.popBackStack()
+            transaction?.remove(this)
+            transaction?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
             transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            var fragmentLogin = fragmentLogin()
-            transaction?.replace(R.id.container, fragmentLogin)
+            transaction?.replace(R.id.container, fragmentLogin())
             transaction?.commit()
         }
         var ssb: SpannableStringBuilder = SpannableStringBuilder();
-        ssb.append(stringFirstPart + string_next)
+        ssb.append(stringFirstPart + stringNext)
         ssb.setSpan(object : ClickableSpan() {
             override fun onClick(v: View) {
                 Log.d("Clinked", "Terms and Conditions")
@@ -90,6 +89,7 @@ class fragmentSignUp:Fragment() {
             }
         }, 38, 56, 0)
         ssb.setSpan(UnderlineSpan(), 38, 56, 0)
+        ssb.setSpan(ForegroundColorSpan(Color.CYAN), 38, 56, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.setSpan(ForegroundColorSpan(context?.getResources()?.getColor(R.color.SignUpColor)!!), 38, 56, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.setSpan(RelativeSizeSpan(1.1f), 38, 56, 0)
         ssb.setSpan(object : ClickableSpan() {
@@ -101,20 +101,16 @@ class fragmentSignUp:Fragment() {
             }
         }, 61, ssb.length, 0)
         ssb.setSpan(UnderlineSpan(), 61, ssb.length, 0)
+        ssb.setSpan(ForegroundColorSpan(Color.CYAN), 61, ssb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.setSpan(ForegroundColorSpan(context?.getResources()?.getColor(R.color.SignUpColor)!!), 61, ssb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.setSpan(RelativeSizeSpan(1.1f), 61, ssb.length, 0)
         yess.append(ssb)
         yess.setMovementMethod(LinkMovementMethod.getInstance());
         btnSignUp.setOnClickListener {
-
-            var status: Boolean = true
-            Log.d("Clicked","yes")
             if (txtSignUpUsername.text.trim().isEmpty() || txtSignUpUsername.text.length == 0) {
-                status = false
                 var snackbar1: Snackbar = Snackbar.make(it, "Please enter your username", Snackbar.LENGTH_SHORT);
                 snackbar1.show();
             } else if (txtSignUpEmialAddress.text.isEmpty() || txtSignUpEmialAddress.text.length == 0 || !validEmail(txtSignUpEmialAddress.text.toString())) {
-                status = false
                 if (txtSignUpEmialAddress.text.isEmpty()) {
                     var snackbar2: Snackbar = Snackbar.make(it, "Please enter your emial id", Snackbar.LENGTH_SHORT);
                     snackbar2.show();
@@ -122,14 +118,11 @@ class fragmentSignUp:Fragment() {
                     var snackbar1: Snackbar = Snackbar.make(it, "Please enter your emial id!", Snackbar.LENGTH_SHORT);
                     snackbar1.show();
                 } else if (!validEmail(txtSignUpEmialAddress.text.toString())) {
-                    status = false
-                    //Toast.makeText(it.context, "Invalid Email", Toast.LENGTH_SHORT).show()
                     var snackbar1: Snackbar = Snackbar.make(it, "Please enter a valid emial-id", Snackbar.LENGTH_SHORT);
                     snackbar1.show();
                 }
 
             } else if (txtSignUpPassword.text.isEmpty() || txtSignUpEmialAddress.text.length == 0) {
-                status = false
                 if (txtSignUpPassword.text.isEmpty()) {
                     var snackbar2: Snackbar = Snackbar.make(it, "Please enter your password", Snackbar.LENGTH_SHORT);
                     snackbar2.show();
@@ -138,103 +131,115 @@ class fragmentSignUp:Fragment() {
                     snackbar2.show();
                 }
             } else if (txtSignUpConfirmPassword.text.isEmpty()) {
-                status = false
-                //Toast.makeText(it.context, "Enter Secure password", Toast.LENGTH_SHORT).show()
                 var snackbar1: Snackbar = Snackbar.make(it, "Please re-enter your password", Snackbar.LENGTH_SHORT);
                 snackbar1.show();
-            }
-            else
-            {
-                var use=ReuseMethod()
-                var pass=txtSignUpConfirmPassword.text.trim().toString()
-                var confirm=txtSignUpPassword.text.trim().toString()
-                if(pass.equals("${confirm}")) {
-                    var loader = Loader()
-                    loader.ShowCustomLoader(it.context)
-                    val okHttpClient = OkHttpClient.Builder()
-                            .addInterceptor(BasicAuthInterceptor("mantrame@emilence.com", "Emilence@1"))
-                            .connectTimeout(20, TimeUnit.SECONDS)
-                            .writeTimeout(20, TimeUnit.SECONDS)
-                            .readTimeout(20, TimeUnit.SECONDS)
-                            .build()
-                    val retrofit = Retrofit.Builder()
-                            .client(okHttpClient)
-                            .baseUrl("http://139.59.18.239:6010/")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build()
-                    val name = txtSignUpUsername.text.toString().trim()
-                    val email = txtSignUpEmialAddress.text.toString().trim()
-                    val password = txtSignUpPassword.text.toString().trim()
-                    val confirmPassword = txtSignUpConfirmPassword.text.toString().trim()
-                    val redditAP = retrofit.create(RedditAPI::class.java)
-                    val headerMap = HashMap<String, RequestBody>()
-                    headerMap.put("name", RequestBody.create(MediaType.parse("text/plain"), name))
-                    headerMap.put("email", RequestBody.create(MediaType.parse("text/plain"), email))
-                    headerMap.put("password", RequestBody.create(MediaType.parse("text/plain"), password))
-                    headerMap.put("confirmPassword", RequestBody.create(MediaType.parse("text/plain"), confirmPassword))
-                    var query: String = "profilePic\";filename=\"${FilePicture().absolutePath}"
-                    headerMap.put(query, RequestBody.create(MediaType.parse("/Images"), FilePicture()))           ///
+            } else {
+                var pass1 = txtSignUpConfirmPassword.text.trim()
+                var pass2 = txtSignUpPassword.text.trim()
+                if (pass1 == pass2) {
 
-                    var call = redditAP.uploadFileWithPartMap(headerMap)
-                    var use = ReuseMethod()
-                    call.enqueue(object : Callback<ResponseBody> {
-                        override fun onResponse(call: Call<ResponseBody>, response: retrofit2.Response<ResponseBody>?) {
-                            Log.d("server", "onResponse: Server Response: " + response.toString());
-
-                            try {
-                                val json: String = response?.body()!!.string();
-                                Log.d("JSON", "onResponse: json: " + json);
-                                var data: JSONObject? = null;
-                                data = JSONObject(json)
-                                var status = data.get("success")
-
-                                Log.d("StatusBar", "${status}")
-                                if (status == 0) {
-
-                                    use.showSnakBar(it, "User Exists Error")
-                                    loader.HideCustomLoader()
-                                } else {
-                                    use.showSnakBar(it, "Successfully Account Created!!")
-                                    loader.HideCustomLoader()
-                                    val transaction = fragmentManager?.beginTransaction()
-                                    transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                                    var fragmentLogin = fragmentDashboard()
-                                    transaction?.replace(R.id.container, fragmentLogin)
-                                    transaction?.addToBackStack("Login Page")
-                                    transaction?.commit()
-                                }
-                            } catch (e: JSONException) {
-                                Log.e("JSONException", "onResponse: JSONException: ");
-                                use.showSnakBar(it, "JSONException")
-                                loader.HideCustomLoader()
-                            } catch (e: IOException) {
-                                Log.e("IOexception", "onResponse: JSONException: ");
-                                use.showSnakBar(it, "JSONException")
-                                loader.HideCustomLoader()
-                            }
-
-                        }
-
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                            Log.e("OnFailure", "onFailure: Something went wrong: ");
-                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
-                            use.showSnakBar(it, "Something went wrong")
-                            loader.HideCustomLoader()
-                        }
-                    })
                 }
                 else
                 {
-                    use.showSnakBar(it, "Mismatch Password")
+                    var use = ReuseMethod()
+                    var pass = txtSignUpConfirmPassword.text.trim().toString()
+                    var confirm = txtSignUpPassword.text.trim().toString()
+                    if (pass.equals("${confirm}")) {
+                        var loader = Loader()
+                        loader.ShowCustomLoader(it.context)
+                        val okHttpClient = OkHttpClient.Builder()
+                                .addInterceptor(BasicAuthInterceptor("mantrame@emilence.com", "Emilence@1"))
+                                .connectTimeout(20, TimeUnit.SECONDS)
+                                .writeTimeout(20, TimeUnit.SECONDS)
+                                .readTimeout(20, TimeUnit.SECONDS)
+                                .build()
+                        val retrofit = Retrofit.Builder()
+                                .client(okHttpClient)
+                                .baseUrl("http://139.59.18.239:6010/")
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build()
+                        val name = txtSignUpUsername.text.toString().trim()
+                        val email = txtSignUpEmialAddress.text.toString().trim()
+                        val password = txtSignUpPassword.text.toString().trim()
+                        val confirmPassword = txtSignUpConfirmPassword.text.toString().trim()
+                        val redditAP = retrofit.create(RedditAPI::class.java)
+                        val headerMap = HashMap<String, RequestBody>()
+                        headerMap.put("name", RequestBody.create(MediaType.parse("text/plain"), name))
+                        headerMap.put("email", RequestBody.create(MediaType.parse("text/plain"), email))
+                        headerMap.put("password", RequestBody.create(MediaType.parse("text/plain"), password))
+                        headerMap.put("confirmPassword", RequestBody.create(MediaType.parse("text/plain"), confirmPassword))
+                        //var query: String = "profilePic\";filename=\"${f?.absolutePath}"
+                        var query: String = "profilePic\";filename=\"${FilePicture().absolutePath}"
+                        headerMap.put(query, RequestBody.create(MediaType.parse("/Images"), FilePicture()))           ///
+
+                        var call = redditAP.uploadFileWithPartMap(headerMap)
+                        var use = ReuseMethod()
+                        call.enqueue(object : Callback<ResponseBody> {
+                            override fun onResponse(call: Call<ResponseBody>, response: retrofit2.Response<ResponseBody>?) {
+                                Log.d("server", "onResponse: Server Response: " + response.toString());
+
+                                try {
+                                    val json: String = response?.body()!!.string();
+                                    Log.d("JSON", "onResponse: json: " + json);
+                                    var data: JSONObject? = null;
+                                    data = JSONObject(json);
+//                            Log.d(TAG, "onResponse: data: " + data.optString("json"));
+                                    data = JSONObject(json)
+                                    var status = data.get("success")
+
+                                    //Log.d("detial","Emial is ${emial} First Name ${firstName} Phone Number  ${phoneNumber} User Pic is ${pic} Country is ${country}")
+                                    Log.d("StatusBar", "${status}")
+                                    if (status == 0) {
+
+                                        use.showSnakBar(it, "User Exists Error")
+                                        loader.HideCustomLoader()
+                                    } else {
+                                        use.showSnakBar(it, "Successfully Account Created!!")
+                                        loader.HideCustomLoader()
+                                        val transaction = fragmentManager?.beginTransaction()
+                                        transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                                        var fragmentLogin = FragmentDashboard()
+                                        transaction?.replace(R.id.container, fragmentLogin)
+                                        transaction?.addToBackStack("Login Page")
+                                        transaction?.commit()
+                                    }
+                                } catch (e: JSONException) {
+                                    Log.e("JSONException", "onResponse: JSONException: ");
+                                    use.showSnakBar(it, "JSONException")
+                                    loader.HideCustomLoader()
+                                } catch (e: IOException) {
+                                    Log.e("IOexception", "onResponse: JSONException: ");
+                                    use.showSnakBar(it, "JSONException")
+                                    loader.HideCustomLoader()
+                                }
+
+                            }
+
+                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                Log.e("OnFailure", "onFailure: Something went wrong: ");
+                                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                use.showSnakBar(it, "Something went wrong")
+                                loader.HideCustomLoader()
+                            }
+                        })
+
+                        //
+                    } else {
+                        //Toast.makeText(it.context, "Invalid password", Toast.LENGTH_SHORT).show()
+                        var snackbar1: Snackbar = Snackbar.make(it, "Passsword mismatch", Snackbar.LENGTH_SHORT);
+                        snackbar1.show();
+                        use.showSnakBar(it, "Mismatch Password")
+                    }
+
                 }
-
             }
-        }
-        main.setOnClickListener {
-            it.hideKeyboard()
-        }
+            main.setOnClickListener {
+                it.hideKeyboard()
+            }
 
-        this.activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+            this.activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+            //this.activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -248,38 +253,43 @@ class fragmentSignUp:Fragment() {
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI)
 
 
-            Log.d("String","Yes")
-            startActivityForResult(intent, PICK_FROM_FILE)
-            Log.d("String","YesYes")
+        Log.d("String", "Yes")
+        startActivityForResult(intent, PICK_FROM_FILE)
+        Log.d("String", "YesYes")
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            Log.d("yes","yesyesyesyes")
+        Log.d("yes", "yesyesyesyes")
 
-            if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
-                var extras = data?.extras
-                var imageBitmap = extras?.get("data") as Bitmap
-                bmpuri=imageBitmap
-                f = FilePicture(imageBitmap)
-                Log.d("uri", "${Uri.fromFile(f)}")
-                pic.setImageURI(Uri.fromFile(f), context)
-                pic.invalidate();
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
+            var extras = data?.extras
+            var imageBitmap = extras?.get("data") as Bitmap
+            var file: File? = null
+            file = FilePicture(imageBitmap)
+            Log.d("uri", "${Uri.fromFile(file)}")
+            pic.setImageURI(Uri.fromFile(file), context)
+            bmpuri = imageBitmap
+            f = FilePicture(imageBitmap)
+            Log.d("uri", "${Uri.fromFile(f)}")
+            pic.setImageURI(Uri.fromFile(f), context)
+            pic.invalidate();
 
 
-            } else if (requestCode == PICK_FROM_FILE && resultCode == AppCompatActivity.RESULT_OK) {
-                try {
-                    var mCapturedImageURI: Uri = data?.data!!
-                    pic.setImageURI(mCapturedImageURI, context)
-                    bmpuri= MediaStore.Images.Media.getBitmap(context?.getContentResolver(),mCapturedImageURI);
-                    var imagePath = mCapturedImageURI.path
+        } else if (requestCode == PICK_FROM_FILE && resultCode == AppCompatActivity.RESULT_OK) {
+            try {
+                var mCapturedImageURI: Uri = data?.data!!
+                pic.setImageURI(mCapturedImageURI, context)
+                bmpuri = MediaStore.Images.Media.getBitmap(context?.getContentResolver(), mCapturedImageURI);
+                var imagePath = mCapturedImageURI.path
 
-                    Log.d("path", "${mCapturedImageURI}")
-                } catch (e: java.lang.Exception) {
+                Log.d("path", "${mCapturedImageURI}")
+            } catch (e: java.lang.Exception) {
 
-                    // e.printStackTrace()
-                    // Toast.makeText(context, "Image_notfound ${e}", Toast.LENGTH_LONG).show()
-                }
-
+                // e.printStackTrace()
+                // Toast.makeText(context, "Image_notfound ${e}", Toast.LENGTH_LONG).show()
             }
+
+        }
 
     }
 
@@ -312,6 +322,7 @@ class fragmentSignUp:Fragment() {
         var pattern: Pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
+
     fun savePicture(bm: Bitmap, imgName: String) {
         var fOut: OutputStream? = null
         val strDirectory = Environment.getExternalStorageDirectory().toString()
@@ -333,13 +344,14 @@ class fragmentSignUp:Fragment() {
         }
         MediaScannerConnection.scanFile(context, arrayOf(f.toString()), null
         ) { path, uri ->
-            url_pic=uri
-            pic.setImageURI(uri,context)
+            url_pic = uri
+            pic.setImageURI(uri, context)
             Log.i("ExternalStorage", "Scanned $path:")
 
         }
     }
-    fun FilePicture( bitmap: Bitmap): File {
+
+    fun FilePicture(bitmap: Bitmap): File {
         var f: File = File(context?.cacheDir, "${bitmap.toString()}")
         f.createNewFile()
         var bos: ByteArrayOutputStream = ByteArrayOutputStream();
@@ -351,10 +363,12 @@ class fragmentSignUp:Fragment() {
         fos.close();
         return f
     }
+
     fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
+
     fun FilePicture(): File {
         var f: File = File(context?.cacheDir, "Saii")
         f.createNewFile()
@@ -372,4 +386,5 @@ class fragmentSignUp:Fragment() {
 
         return f
     }
+
 }

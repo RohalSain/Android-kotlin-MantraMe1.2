@@ -3,7 +3,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context="com.developer.rohal.mantra.fragmentMakeImage">
+tools:context="com.developer.rohal.mantra.FragmentMakeImage">
 <RelativeLayout
     android:id="@+id/main"
     android:layout_marginTop="20dp"
@@ -54,6 +54,7 @@ tools:context="com.developer.rohal.mantra.fragmentMakeImage">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageButton
+                android:id="@+id/makeImagefrag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_tick_white"/>
@@ -79,8 +80,28 @@ tools:context="com.developer.rohal.mantra.fragmentMakeImage">
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:visibility="invisible"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="@dimen/dim_minus_5dp"
+                    android:layout_marginEnd="@dimen/dim_minus_5dp"
+                    android:layout_marginTop="@dimen/dim_minus_5dp"
+                    android:layout_marginBottom="@dimen/dim_minus_5dp"
                     android:id="@+id/makeImageCircular"
                     android:background="@drawable/ic_home_screen_image_placeholder"/>
+                <ImageView
+                    android:visibility="visible"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    android:layout_marginStart="@dimen/dim_minus_5dp"
+                    android:layout_marginEnd="@dimen/dim_minus_5dp"
+                    android:layout_marginTop="@dimen/dim_minus_5dp"
+                    android:layout_marginBottom="@dimen/dim_minus_5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_mantra_me_text"
+                    android:id="@+id/makeImageCircularImage"
+                    />
                 <TextView
                     android:id="@+id/MakeImageText"
                     android:textColor="@android:color/black"
@@ -90,69 +111,45 @@ tools:context="com.developer.rohal.mantra.fragmentMakeImage">
                     android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
             </RelativeLayout>
         </RelativeLayout>
         <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="3"
-            android:id="@+id/belowBar"
+            android:background="@drawable/ic_header_bg"
             android:layout_alignParentBottom="true"
+            android:layout_height="55dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:weightSum="2">
             <Button
+                android:paddingTop="4dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:textSize="12sp"
-                android:id="@+id/BackGroundColor"
-                android:paddingLeft="22dp"
-                android:drawablePadding="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="Background"
-                android:textAllCaps="false"
-                android:textAlignment="viewStart"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_refection_grey"/>
-            <Button
-                android:layout_weight="1"
-                android:textSize="12sp"
+                android:width="0dp"
+                android:drawableTop="@drawable/ic_camera_edit_bg_white"
                 android:id="@+id/Camera"
-                android:paddingLeft="22dp"
-                android:drawablePadding="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
                 android:text="Camera"
-                android:textAllCaps="false"
-                android:textAlignment="viewStart"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_refection_grey"/>
-            <Button
-                android:layout_weight="1"
+                android:textColor="@color/white"
                 android:textSize="12sp"
+                android:background="@null"/>
+            <Button
+                android:paddingTop="4dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:width="0dp"
+                android:drawableTop="@drawable/ic_gallery_white"
                 android:id="@+id/Gallery"
-                android:paddingLeft="22dp"
-                android:drawablePadding="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
                 android:text="Gallery"
-                android:textAllCaps="false"
-                android:textAlignment="viewStart"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_refection_grey"/>
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:background="@null"/>
         </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerviewSideMenu"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_above="@+id/belowBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/shadow"
-            android:layout_centerHorizontal="true">
-        </android.support.v7.widget.RecyclerView>
+        <include android:id="@+id/loading_indicator_makeImage"
+            layout="@layout/fragment_loading"/>
     </RelativeLayout>
 </RelativeLayout>
 </RelativeLayout>

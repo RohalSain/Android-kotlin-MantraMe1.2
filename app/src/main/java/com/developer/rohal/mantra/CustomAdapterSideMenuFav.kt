@@ -8,28 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.items_side_menu_reflection.view.*
-import okhttp3.ResponseBody
-import org.json.JSONException
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import java.io.IOException
 import kotlin.collections.ArrayList
 
-class CustomAdpaterSideMenuReflection(var userlist: ArrayList<PojoAllQuoteDetailReflection>, var context: Context, val listener: OnItemClickListener): RecyclerView.Adapter<CustomAdpaterSideMenuReflection.ViewHolder>() {
+class CustomAdapterSideMenuFaa(var userlist: ArrayList<PojoAllQuoteDetailReflection>, var context: Context, val listener: OnItemClickListener): RecyclerView.Adapter<CustomAdapterSideMenuFaa.ViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val user= userlist[position]
-        holder?.Quote?.text = user.text
-        holder?.QuoteImage?.setImageURI("http://139.59.18.239:6010/mantrame/${user.background}?dim=500x500")
+        holder?.Quote?.text = userlist[position].text
+        holder?.QuoteImage?.setImageURI("http://139.59.18.239:6010/mantrame/${userlist[position].background}?dim=500x500")
         holder?.LayoutId?.setOnClickListener {
-            var intemListener:RecyclerViewClickListener
-            Log.d("String","yesyes")
-            var ob=SideMenuReflectionSelectedData()
-            ob.Quote=user.text
+            SideMenuReflectionSelectedData().Quote=userlist[position].text
             listener.onItemClick(position)
         }
         }
@@ -38,9 +28,7 @@ class CustomAdpaterSideMenuReflection(var userlist: ArrayList<PojoAllQuoteDetail
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.items_side_menu_reflection, parent, false)
-        var titleFont = Typeface.createFromAsset(parent?.context?.assets, "fonts/BubblegumSans-Regular.ttf")
-        return ViewHolder(v)
+        return ViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.items_side_menu_fav, parent, false))
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

@@ -33,7 +33,7 @@ class Loader
     }
     fun ShowCustomLoader(context: Context)
     {
-        loaderContext=context
+        loaderContext = context
         CustomLoader = Dialog(context)
         CustomLoader!!.setContentView(R.layout.fragment_loader)
         CustomLoader!!.getWindow().setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
@@ -48,6 +48,7 @@ class Loader
     {
         loaderContext=context
         CustomLoader = Dialog(context)
+
         CustomLoader!!.setContentView(R.layout.comingsoon)
         CustomLoader!!.getWindow().setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
         CustomLoader!!.window.attributes.windowAnimations = R.style.customAnimationsgrow

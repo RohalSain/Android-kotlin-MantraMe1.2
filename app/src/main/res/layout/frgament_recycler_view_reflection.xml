@@ -1,4 +1,4 @@
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -179,4 +179,6 @@
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+    <include android:id="@+id/loading_indicateref"
+        layout="@layout/fragment_loading"/>
+</FrameLayout>

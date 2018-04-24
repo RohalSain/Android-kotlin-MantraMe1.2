@@ -2,7 +2,7 @@ package com.developer.rohal.mantra
 
 import android.widget.ImageView
 
-public class  SideMenuReflectionSelectedData () {
+class  SideMenuReflectionSelectedData  {
     init {
         println("This ($this) is a singleton")
     }

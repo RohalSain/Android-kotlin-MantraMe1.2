@@ -13,11 +13,15 @@
     <RelativeLayout
         android:id="@+id/status"
         android:background="#b4b3b3"
-        android:layout_width="180dp"
-        android:layout_height="300dp">
+        android:layout_width="150dp"
+        android:layout_height="150dp">
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dim_minus_5dp"
+            android:layout_marginEnd="@dimen/dim_minus_5dp"
+            android:layout_marginTop="@dimen/dim_minus_5dp"
+            android:layout_marginBottom="@dimen/dim_minus_5dp"
             android:id="@+id/QuoteImage"
             android:background="@drawable/ic_home_screen_image_placeholder"/>
         <TextView

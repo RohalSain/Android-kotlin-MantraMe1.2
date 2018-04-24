@@ -7,7 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 
-class  Notifications(){
+class  Notifications{
 
     val NOTIFIYTAG="new request"
     fun Notify(context: Context,message:String,number:Int){
@@ -15,7 +15,7 @@ class  Notifications(){
 
         val builder=NotificationCompat.Builder(context)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setContentTitle("New request")
+                .setContentTitle("Alarm Clicked")
                 .setContentText(message)
                 .setNumber(number)
                 .setSmallIcon(R.drawable.notification_icon_background)

@@ -24,10 +24,22 @@ class fragmentSideMenuSettings : Fragment() {
         SettingBackButton.setOnClickListener {
             activity?.onBackPressed()
         }
+        DailyNotification.setOnClickListener {
+        }
+
+        AccountChangePasswordInner.setOnClickListener {
+            Log.d("String","yes")
+            val transaction = fragmentManager?.beginTransaction()
+            transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+            var fragmentLogin = fragmentForgortPasswordVerify()
+            transaction?.replace(R.id.container, fragmentLogin)
+            transaction?.addToBackStack("Dashboard Page")
+            transaction?.commit()
+        }
         AccountSettings.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
             //transaction?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            var fragmentLogin = fragmentAccountSetting()
+            var fragmentLogin = FragmentAccountSetting()
             transaction?.replace(R.id.container, fragmentLogin)
             transaction?.addToBackStack("Dashboard Page")
             transaction?.commit()
@@ -41,6 +53,5 @@ class fragmentSideMenuSettings : Fragment() {
                 transaction?.addToBackStack("Dashboard Page")
                 transaction?.commit()
             }
-
     }
 }// Required empty public constructor

@@ -37,13 +37,11 @@ class fragmentAlarm : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         ok.setOnClickListener {
-            //Log.d("Date",DatePicker.date.toString())
             startAlert(it)
         }
     }
 
     fun startAlert(view: View) {
-        //val text = findViewById(R.id.time) as EditText
        var i=10;
         Log.d("Alarm","Yes yes")
         val intent = Intent(view.context, MyBroadcastReceiver::class.java)
